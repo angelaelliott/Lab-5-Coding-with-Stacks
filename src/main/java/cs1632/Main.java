@@ -40,41 +40,8 @@ public class Main {
                 tokenSequence = getNextSequence(myScanner);
                 if (tokenSequence != null) {
                     // Replace the code starting here with code to evaluate the expression
-                    //here is our stack
-                    Deque<Integer> stack = new ArrayDeque<>();
-
-                    // loop from right to left starting from the first token of the equation that isn't the semicolon
-                    for (int i = tokenSequence.size() - 2; i >= 0; i--) {
-                        // get the token as a string
-                        String tokenStr = tokenSequence.get(i).getTokenString();
-                        // switch statement for each operator
-                        switch (tokenStr) {
-                            case "+": {
-                                stack.push(stack.pop()+stack.pop());
-                                break;
-                            }
-                            case "-": {
-                                stack.push(stack.pop()-stack.pop());
-                                break;
-                            }
-                            case "*": {
-                                stack.push(stack.pop()*stack.pop());
-                                break;
-                            }
-                            case "/": {
-                                stack.push(stack.pop()/stack.pop());
-                                break;
-                            }
-                            default: {
-                                // if it's not an operator, assume it's an integer (add that to the stack)
-                                stack.push(Integer.parseInt(tokenStr));
-                                break;
-                            }
-                        }
-                    }
-
-                    // result is the last item on the stack after calculations
-                    System.out.println("Result: " + stack.pop());
+                    //use function to evaluate the prefix expression
+                    System.out.println("Result: " + PrefixExpressionEvaluator.evaluateExpression(tokenSequence));
                     // End where to replace
                 }
             } while (tokenSequence != null);
