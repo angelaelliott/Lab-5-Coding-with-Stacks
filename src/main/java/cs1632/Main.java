@@ -1,7 +1,9 @@
 package cs1632;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Deque;
 
 public class Main {
     private static Boolean endsSequence(Token tok) {
@@ -38,11 +40,49 @@ public class Main {
                 tokenSequence = getNextSequence(myScanner);
                 if (tokenSequence != null) {
                     // Replace the code starting here with code to evaluate the expression
-                    System.out.print("Read equation: ");
-                    for (Token tok : tokenSequence) {
-                        System.out.print(tok.getTokenString() + " ");
+                    //here is our stack
+                    Deque<Integer> stack = new ArrayDeque<>();
+
+                    // loop from right to left starting from the first token of the equation that isn't the semicolon
+                    for (int i = tokenSequence.size() - 2; i >= 0; i--) {
+                        // get the token as a string
+                        String tokenStr = tokenSequence.get(i).getTokenString();
+                        // switch statement for each operator
+                        switch (tokenStr) {
+                            case "+": {
+                                int first = stack.pop();
+                                int second = stack.pop();
+                                stack.push(first + second);
+                                break;
+                            }
+                            case "-": {
+                                int first = stack.pop();
+                                int second = stack.pop();
+                                stack.push(first - second);
+                                break;
+                            }
+                            case "*": {
+                                int first = stack.pop();
+                                int second = stack.pop();
+                                stack.push(first * second);
+                                break;
+                            }
+                            case "/": {
+                                int first = stack.pop();
+                                int second = stack.pop();
+                                stack.push(first/second);
+                                break;
+                            }
+                            default: {
+                                // if it's not an operator, assume it's an integer (add that to the stack)
+                                stack.push(Integer.parseInt(tokenStr));
+                                break;
+                            }
+                        }
                     }
-                    System.out.println();
+
+                    // result is the last item on the stack after calculations
+                    System.out.println("Result: " + stack.pop());
                     // End where to replace
                 }
             } while (tokenSequence != null);
