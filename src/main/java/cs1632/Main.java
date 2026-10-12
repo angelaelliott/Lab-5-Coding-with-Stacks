@@ -50,27 +50,19 @@ public class Main {
                         // switch statement for each operator
                         switch (tokenStr) {
                             case "+": {
-                                int first = stack.pop();
-                                int second = stack.pop();
-                                stack.push(first + second);
+                                stack.push(stack.pop()+stack.pop());
                                 break;
                             }
                             case "-": {
-                                int first = stack.pop();
-                                int second = stack.pop();
-                                stack.push(first - second);
+                                stack.push(stack.pop()-stack.pop());
                                 break;
                             }
                             case "*": {
-                                int first = stack.pop();
-                                int second = stack.pop();
-                                stack.push(first * second);
+                                stack.push(stack.pop()*stack.pop());
                                 break;
                             }
                             case "/": {
-                                int first = stack.pop();
-                                int second = stack.pop();
-                                stack.push(first/second);
+                                stack.push(stack.pop()/stack.pop());
                                 break;
                             }
                             default: {
